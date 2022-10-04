@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <header>
+  <v-app>
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink> |
@@ -11,8 +11,8 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/login">Log-In</RouterLink>
       </nav>
     </div>
-  </header>
-  <RouterView />
+    <RouterView />
+  </v-app>
 </template>
 
 <style scoped>

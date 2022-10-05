@@ -1,34 +1,22 @@
 <template>
-  <hr />
-  <div class="page">
-    <p>
-      <label class="label" for="usr">Benutzername: </label>
-      <input class="input" v-model="username" id="usr" />
-    </p>
-    <p>
-      <label class="label" for="pass">Passwort: </label>
-      <input class="input" v-model="password" id="pass" />
-    </p>
-    <p>
-      <button class="center">LOGIN</button>
-      <button class="center">Anmeldem mit Keycloak</button>
-    </p>
-  </div>
+  <v-container>
+    <v-card max-width="800" mx-auto>
+      <v-card-title> Login </v-card-title>
+      <hr />
+      <v-text-field label="Benutzername" v-model="username"> </v-text-field>
+      <v-text-field label="Passwort" v-model="password"> </v-text-field>
+      <hr />
+      <p>
+        <v-btn outlined rounded text class="float left">Login</v-btn>
+        <v-btn outlined rounded text class="float right"
+          >Anmelden mit Keycloak</v-btn
+        >
+      </p>
+    </v-card>
+  </v-container>
 </template>
-<script setup></script>
-<style scoped>
-.input {
-  position: absolute;
-  right: 0px;
-}
-.page {
-  position: relative;
-  top: 5%;
-}
-.center {
-  margin: 1px;
-  padding: 5px;
-  position: relative;
-  left: 40%;
-}
-</style>
+<script setup>
+import { ref } from "vue";
+const username = ref("");
+const password = ref("");
+</script>

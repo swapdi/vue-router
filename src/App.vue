@@ -4,19 +4,26 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <v-app>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink> |
-        <RouterLink to="/settings">Settings</RouterLink> |
-        <RouterLink to="/login">Log-In</RouterLink>
-      </nav>
-    </div>
-    <RouterView />
+    <v-main>
+      <RouterView />
+    </v-main>
+    <v-bottom-navigation app fixed>
+      <router-link to="/" v-slot="{ href, route, navigate }">
+        <v-btn plain :href="href" @click="navigate">
+          {{ route.name }}
+        </v-btn>
+      </router-link>
+
+      <router-link to="/settings" v-slot="{ href, route, navigate }">
+        <v-btn plain :href="href" @click="navigate">
+          {{ route.name }}
+        </v-btn>
+      </router-link>
+      <router-link to="/login" v-slot="{ href, route, navigate }">
+        <v-btn plain :href="href" @click="navigate">
+          {{ route.name }}
+        </v-btn>
+      </router-link>
+    </v-bottom-navigation>
   </v-app>
 </template>
-
-<style scoped>
-.wrapper {
-  font-size: xx-large;
-}
-</style>

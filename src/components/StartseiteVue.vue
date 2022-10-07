@@ -1,51 +1,31 @@
 <template>
-  <v-container fluid>
-    <v-navigation-drawer
-      v-model="drawer"
-      :rail="rail"
-      permanent
-      @click="rail = false"
-      location="right"
-    >
-      <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-        :title="user"
-        nav
-      >
-        <template v-slot:append>
-          <v-btn
-            variant="text"
-            icon="mdi-chevron-left"
-            @click.stop="rail = !rail"
-          ></v-btn>
-        </template>
-      </v-list-item>
+  <v-app-bar app color="grey">
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-divider></v-divider>
+    <v-app-bar-title>SHI-Institut</v-app-bar-title>
 
-      <v-list density="compact" nav>
-        <v-list-item
-          prepend-icon="mdi-home-city"
-          title="Home"
-          value="home"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account"
-          title="My Account"
-          value="account"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account-group-outline"
-          title="Users"
-          value="users"
-        ></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-main>
-      <h1>Herzlich Willkommen</h1>
-      <h2>{{ user }}</h2></v-main
-    >
-  </v-container>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-avatar large rounded>
+        <v-menu bottom :close-on-click="closeOnClick">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn dark v-bind="attrs" v-on="on">
+              <span class="text-h4">CJ</span>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>Test</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-avatar>
+    </v-btn>
+  </v-app-bar>
+  <v-main>
+    <h1>Herzlich Willkommen</h1>
+    <h2>{{ user }}</h2></v-main
+  >
 </template>
 
 <script setup>

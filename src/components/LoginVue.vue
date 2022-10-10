@@ -9,7 +9,17 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn outlined color="green" rounded text>Login</v-btn>
+        <router-link to="/" v-slot="{ href, navigate }">
+          <v-btn
+            plain
+            :href="href"
+            @click="navigate"
+            outlined
+            color="green"
+            rounded
+            >Login</v-btn
+          ></router-link
+        >
         <v-btn outlined color="black" rounded text>Anmelden mit Keycloak</v-btn>
       </v-card-actions>
     </v-card>
@@ -17,6 +27,12 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const username = ref("");
-const password = ref("");
+import { useAuthStore } from "../stores/auth";
+import { storeToRefs } from "pinia";
+import { RouterLink } from "vue-router";
+
+const authStore = useAuthStore();
+
+const { username } = storeToRefs(authStore);
+const { password } = storeToRefs(authStore);
 </script>

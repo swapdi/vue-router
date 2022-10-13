@@ -54,6 +54,7 @@
   <v-main>
     <h1>Herzlich Willkommen</h1>
     <h2>{{ user }}</h2>
+    <sortableTabs />
   </v-main>
 </template>
 
@@ -62,6 +63,7 @@ import { useNameStore } from "../stores/names";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
+import sortableTabs from "./SortableTabs.vue";
 
 const authStore = useAuthStore();
 const nameStore = useNameStore();
@@ -69,7 +71,6 @@ const { fullname: user } = storeToRefs(nameStore);
 const { initials: init } = storeToRefs(nameStore);
 const { username } = storeToRefs(authStore);
 const { password } = storeToRefs(authStore);
-const { check } = storeToRefs(authStore);
 const menu = ref(false);
 
 function logout() {

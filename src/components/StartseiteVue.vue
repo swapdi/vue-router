@@ -1,10 +1,21 @@
 <template>
-  <v-app-bar app color="grey">
-    <v-app-bar-nav-icon variant="text"></v-app-bar-nav-icon>
+  <v-app-bar app color="primary">
+    <v-app-bar-nav-icon variant="text" color="accent"> </v-app-bar-nav-icon>
 
-    <v-app-bar-title>SHI-Institut</v-app-bar-title>
+    <v-app-bar-title color="accent">SHI-Institut</v-app-bar-title>
 
     <v-spacer></v-spacer>
+    <div class="locale-changer">
+      <select v-model="$i18n.locale">
+        <option
+          v-for="locale in $i18n.availableLocales"
+          :key="`locale-${locale}`"
+          :value="locale"
+        >
+          {{ locale }}
+        </option>
+      </select>
+    </div>
     <v-menu app v-model="menu">
       <template v-slot:activator="{ props }">
         <v-btn v-if="init.length > 0" v-bind="props" icon>{{ init }}</v-btn>
@@ -12,12 +23,12 @@
       </template>
       <v-card min-width="250">
         <v-list-item>
-          <v-avatar v-if="init.length > 0" color="secondary" size="large">
+          <v-avatar v-if="init.length > 0" color="accent" size="large">
             <span class="text-h5">{{ init }}</span>
           </v-avatar>
           <v-avatar
             v-else
-            color="secondary"
+            color="accent"
             size="large"
             icon="mdi-account"
           ></v-avatar>
@@ -27,13 +38,17 @@
         <v-divider></v-divider>
         <v-list>
           <v-list-item>
-            <v-btn block color="primary"> Profil </v-btn>
+            <v-btn block color="accent"> {{ $t("options.profil") }} </v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn block color="primary"> Einstellungen </v-btn>
+            <router-link to="/settings" v-slot="{ href, navigate }">
+              <v-btn block color="accent" :href="href" @click="navigate">
+                {{ $t("options.einstellungen") }}
+              </v-btn>
+            </router-link>
           </v-list-item>
           <v-list-item>
-            <v-btn block color="primary"> Kontakt </v-btn>
+            <v-btn block color="accent"> {{ $t("options.kontakt") }} </v-btn>
           </v-list-item>
         </v-list>
         <v-card-actions>
@@ -44,7 +59,7 @@
               :href="href"
               @click="navigate, logout()"
               color="warning"
-              >Logout
+              >{{ $t("options.abmelden") }}
             </v-btn>
           </router-link>
         </v-card-actions>
@@ -52,8 +67,9 @@
     </v-menu>
   </v-app-bar>
   <v-main>
-    <h1>Herzlich Willkommen</h1>
-    <h2>{{ user }}</h2>
+    <h1>
+      {{ $t("message.willkommen") }} & {{ $t("message.hallo") }}{{ user }}
+    </h1>
     <sortableTabs />
   </v-main>
 </template>

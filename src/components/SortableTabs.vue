@@ -1,39 +1,39 @@
 <template>
-  <draggable
-    v-model="myArray"
-    @start="drag = true"
-    @end="drag = false"
-    item-key="id"
-    direction="horizontal"
-  >
-    <template #item="{ element }">
-      <div>
-        <v-card
-          ><v-tabs v-model="tab" background-color="primary">
-            <v-tab :value="element.name">{{ element.name }}</v-tab>
-          </v-tabs>
-          <v-card-text>
-            <v-window v-model="tab">
-              <v-window-item :value="element.name">
-                {{ element.content }}</v-window-item
-              >
-            </v-window>
-          </v-card-text>
-        </v-card>
-      </div>
-    </template>
-  </draggable>
+  <v-card
+    ><v-tabs v-model="tab">
+      <draggable
+        v-model="tablist"
+        @start="drag = true"
+        @end="drag = false"
+        item-key="id"
+        tag="v-card-text"
+      >
+        <template #item="{ element }">
+          <v-tab :value="element">{{ element }}</v-tab>
+        </template> </draggable
+      ><v-tab @click="add"><span style="font-size: 30px">+</span></v-tab>
+    </v-tabs>
+
+    <v-card-text>
+      <v-window v-model="tab">
+        <v-window-item value="Tab 1"> Tab 1</v-window-item>
+        <v-window-item value="Tab 2"> Tab 2</v-window-item>
+        <v-window-item value="Tab 3"> Tab 3</v-window-item>
+      </v-window>
+    </v-card-text>
+  </v-card>
 </template>
 <script setup>
 import draggable from "vuedraggable";
 import { ref } from "vue";
 
+const a = ref(0);
+function add() {
+  a.value++;
+  return tablist.value.push("Neuer Tab" + a.value);
+}
 const drag = ref(false);
 const tab = ref(null);
-const myArray = ref([
-  { id: 1, name: "Tab 1", content: "Das ist der erste Tab" },
-  { id: 2, name: "Tab 2", content: "Das ist der zweite Tab" },
-  { id: 3, name: "Tab 3", content: "Das ist der dritte Tab" },
-]);
+const tablist = ref(["Tab 1", "Tab 2", "Tab 3"]);
 </script>
 <style scoped></style>

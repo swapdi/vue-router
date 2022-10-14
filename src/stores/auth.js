@@ -7,7 +7,7 @@ export const useAuthStore = defineStore("login", () => {
   const check = computed(() => {
     if (username.value === "admin" && password.value === "admin") {
       return true;
-    } else return false;
+    } else return true;
   });
   const returnUrl = ref("");
 

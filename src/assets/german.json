@@ -1,0 +1,15 @@
+{    
+    "message": {
+        "hallo": "Hallo",
+        "willkommen": "Herzlich Willkommen",
+        "nameneingeben": "Geben Sie hier bitte Ihren vollständigen Namen ein"
+    },
+    "options": {
+        "profil": "Profil",
+        "einstellungen": "Einstellungen",
+        "kontakt": "Kontakt",
+        "abmelden": "Abmelden",
+        "vorname": "Vorname",
+        "nachname": "Nachname"
+    }      
+}

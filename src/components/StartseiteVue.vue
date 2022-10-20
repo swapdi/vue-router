@@ -70,6 +70,7 @@
     <h1>
       {{ $t("message.willkommen") }} & {{ $t("message.hallo") }}{{ user }}
     </h1>
+
     <sortableTabs />
   </v-main>
 </template>

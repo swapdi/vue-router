@@ -42,8 +42,8 @@ const tablist = ref([
   { name: "Tab 2", order: 2 },
   { name: "Tab 3", order: 3 },
 ]);
-function remove() {
+/* function remove() {
   const index = tablist.value.indexOf(element);
-}
+} */
 </script>
 <style scoped></style>

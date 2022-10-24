@@ -2,48 +2,106 @@
   <v-card
     ><v-tabs v-model="tab">
       <draggable
-        v-model="tablist"
+        v-model="sortedList"
         @start="drag = true"
         @end="drag = false"
-        item-key="tab"
+        item-key="id"
         tag="v-card-text"
       >
+        >
         <template #item="{ element }">
-          <v-tab :value="element"
-            >{{ element.name }}<v-btn @click="remove()">X</v-btn></v-tab
+          <v-tab :value="element.ID">
+            {{ element.name
+            }}<v-btn @click="remove(element.ID)">X</v-btn></v-tab
           >
         </template>
       </draggable>
-      <v-tab @click="add"><span style="font-size: 30px">+</span></v-tab>
+      <v-tab @click="add()" value="0"
+        ><span style="font-size: 30px">+</span></v-tab
+      >
     </v-tabs>
 
     <v-card-text>
-      <v-window v-model="tab" v-for="tabs in tablist" :key="tabs.name">
-        <v-window-item :value="tabs.name">{{ tabs.order }}</v-window-item>
+      <v-window v-model="tab" v-for="item in tablist" :key="item.ID">
+        <v-window-item :value="item.ID">{{ item.name }}</v-window-item>
       </v-window>
     </v-card-text>
   </v-card>
   <h1>{{ tablist }}</h1>
+  <h1>{{ tablist.length }}</h1>
+  <h1>{{ sortedList }}</h1>
 </template>
+
 <script setup>
 import draggable from "vuedraggable";
-import { ref } from "vue";
-
-const a = ref(0);
-function add() {
-  a.value++;
-  return tablist.value.push({ name: "Neuer Tab" + a.value, order: a.value });
-}
+import { ref, computed } from "vue";
 const drag = ref(false);
 const tab = ref(null);
 
 const tablist = ref([
-  { name: "Tab 1", order: 1 },
-  { name: "Tab 2", order: 2 },
-  { name: "Tab 3", order: 3 },
+  { ID: 1, name: "Tab 1", order: 0 },
+  { ID: 2, name: "Tab 2", order: 1 },
+  { ID: 3, name: "Tab 3", order: 2 },
 ]);
-/* function remove() {
-  const index = tablist.value.indexOf(element);
-} */
+const sortedList = computed(() => {
+  return sort(tablist.value.slice());
+});
+
+/* const sortedList2 = computed(
+  get() {
+    return sort(tablist.value.slice());
+  },
+  set(newList) {
+
+  }
+); */
+
+function sort(list) {
+  return list.sort(compare);
+}
+
+function compare(a, b) {
+  if (a.order < b.order) {
+    return -1;
+  }
+  if (a.order > b.order) {
+    return 1;
+  }
+  return 0;
+}
+const last = computed(() => {
+  return tablist.value[tablist.value.length - 1];
+});
+const lastID = ref(3);
+
+/* const index = computed(() => {
+  return tablist.value.findIndex((object) => {
+    return object.order === last.value.order;
+  });
+}); */
+const lastOrder = computed(() => {
+  return last.value.order;
+});
+
+function add() {
+  lastID.value++;
+  return tablist.value.push({
+    ID: lastID.value,
+    name: "Neuer Tab ",
+    order: lastOrder.value + 1,
+  });
+}
+function remove(id) {
+  const index = tablist.value.findIndex((object) => {
+    return object.ID === id;
+  });
+  if (index > -1) {
+    tablist.value.splice(index, 1);
+  }
+}
+function updateList(event, moved) {
+  console.log(event);
+  console.log(moved);
+}
 </script>
 <style scoped></style>

@@ -12,41 +12,17 @@
         >
         <template #item="{ element }">
           <v-tab :value="element.ID">
-            {{ element.name }}
-            <v-btn size="x-small" variant="plain" icon="mdi-trash-can-outline"
-              ><v-dialog v-model="dialog" persistent activator="parent">
-                <v-card>
-                  <v-card-text>
-                    Sind Sie sicher, dass Sie den ausgewählten Tab
-                    unwiderruflich löschen möchten?
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn
-                      color="error"
-                      width="50%"
-                      elevation="15"
-                      rounded
-                      @click="remove(element.ID)"
-                      >Löschen</v-btn
-                    >
-                    <v-btn
-                      color="primary"
-                      width="50%"
-                      elevation="15"
-                      rounded
-                      @click="dialog = false"
-                      >Abbrechen</v-btn
-                    >
-                  </v-card-actions>
-                </v-card></v-dialog
-              ></v-btn
-            ></v-tab
-          >
+            {{ element.name
+            }}<v-btn
+              size="x-small"
+              variant="plain"
+              icon="mdi-trash-can-outline"
+              @click="remove(element.ID)"
+            ></v-btn
+          ></v-tab>
         </template>
       </draggable>
-      <v-tab @click="add()" value="0"
-        ><span style="font-size: 30px">+</span></v-tab
-      >
+      <v-tab @click="add()" value="-1" append-icon="mdi-plus"></v-tab>
     </v-tabs>
 
     <v-card-text>
@@ -66,7 +42,6 @@ import { ref, computed, defineComponent, watch } from "vue";
 
 const drag = ref(false);
 const tab = ref(null);
-const dialog = ref(false);
 
 defineComponent({
   components: {
@@ -127,7 +102,6 @@ function add() {
   });
 }
 function remove(id) {
-  dialog.value = false;
   const index = tablist.value.findIndex((object) => {
     return object.ID === id;
   });
